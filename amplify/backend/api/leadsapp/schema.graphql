@@ -1,6 +1,6 @@
 type User
   @model
-  @auth(rules: [{ allow: private, group: ["Admin"] }, { allow: public, provider: iam }]) {
+  @auth(rules: [{ allow: private, groups: ["Admin"] }, { allow: public, provider: iam }]) {
   id: ID!
   firstName: String
   lastName: String
