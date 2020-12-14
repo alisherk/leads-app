@@ -1,5 +1,9 @@
-type Todo @model {
+type User
+  @model
+  @auth(rules: [{ allow: private, group: ["Admin"] }, { allow: public, provider: iam }]) {
   id: ID!
-  name: String!
-  description: String
+  firstName: String
+  lastName: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }

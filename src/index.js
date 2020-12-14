@@ -3,15 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeStore } from 'fluxible-js';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import theme from './theme';
 
 function getInitialStore() {
   return {
-    authedUser: {
-      id: 1,
-      name: 'test',
-    },
+    authedUser: '',
   };
 }
 
@@ -27,6 +24,7 @@ initializeStore({
 
 ReactDOM.render(
   <React.StrictMode>
+    <CssBaseline />
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
