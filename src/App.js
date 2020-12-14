@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 //import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <Toolbar />
+      <Button> Test </Button> 
     </>
   );
 }
