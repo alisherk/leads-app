@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Typography, makeStyles, Paper, Divider, TextField, Button } from '@material-ui/core';
 import { updateStore } from 'fluxible-js';
 import { Auth } from 'aws-amplify';
+import { alertMessage } from '../../fluxible/popup';
 
 const useStyles = makeStyles(({ spacing }) => ({
   wrapper: {
@@ -21,12 +22,9 @@ const useStyles = makeStyles(({ spacing }) => ({
 }));
 
 function validateEmail(email) {
-  if (!email) {
-    return 'Required';
-  }
+  if (!email) return 'Required';
   const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!regex.test(email) || !email.length > 320) return 'Invalid email';
-
   return '';
 }
 
@@ -35,7 +33,7 @@ function validatePassword(password) {
   return '';
 }
 
-const Login = () => {
+const LoginForm = ( { onSuccess }) => {
   const classes = useStyles();
 
   const [{ email, password, isSubmitting }, setFormValues] = useState({
@@ -72,16 +70,26 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     setFormValues(prevState => ({
       ...prevState,
       isSubmitting: true,
     }));
     updateStore({ loading: true });
-
     try {
-      await Auth.signIn(email.input, password.input);
+      const cognitoUser = await Auth.signIn(email.input, password.input);
+      onSuccess(cognitoUser)
+      setFormValues(prevState => ({
+        ...prevState,
+        isSubmitting: false,
+      }));
+      updateStore({ loading: false });
     } catch (err) {
+      updateStore({ loading: false });
+      alertMessage({ title: 'Login error', message: err.message });
+      setFormValues(prevState => ({
+        ...prevState,
+        isSubmitting: false,
+      }));
       console.log(err);
     }
   };
@@ -139,4 +147,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

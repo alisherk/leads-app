@@ -5,12 +5,12 @@ import reportWebVitals from './reportWebVitals';
 import { initializeStore } from 'fluxible-js';
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import theme from './theme';
+import Amplify from 'aws-amplify';
+import awsConfig from './aws-exports';
+import getInitialStore from './fluxible/getInitialStore';
 
-function getInitialStore() {
-  return {
-    authedUser: '',
-  };
-}
+Amplify.configure(awsConfig);
+
 
 initializeStore({
   initialStore: getInitialStore(),
@@ -32,7 +32,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

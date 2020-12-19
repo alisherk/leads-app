@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-import Login from './guest/Login';
+import Login from './guest/index';
 
 function mapState({ authedUser }) {
   return { authedUser };
@@ -9,8 +9,7 @@ function mapState({ authedUser }) {
 
 const Routes = () => {
   const { authedUser } = useFluxibleStore(mapState);
-
-  if (authedUser.id) {
+  if (authedUser) {
     return (
       <>
         <AppBar position="fixed">

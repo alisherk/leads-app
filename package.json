@@ -11,6 +11,7 @@
     "react-dom": "^17.0.1",
     "react-fluxible": "^5.0.3",
     "react-scripts": "4.0.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -52,7 +53,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
