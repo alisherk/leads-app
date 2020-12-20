@@ -5,11 +5,13 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
+    "aws-amplify": "^3.3.12",
     "fluxible-js": "^5.0.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fluxible": "^5.0.3",
     "react-scripts": "4.0.1",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -51,7 +53,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
