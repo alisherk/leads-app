@@ -272,8 +272,7 @@ function useForm ({
     autocomplete: autocompleteHandlers,
     fileSelect,
     valueChanged
-  } = React.useMemo(
-    () =>
+  } = React.useMemo(() =>
       Object.keys(initialFormValues).reduce(
         (accumulator, field) => ({
           valueChanged: {
@@ -310,6 +309,8 @@ function useForm ({
       ),
     [initialFormValues, setField]
   );
+
+ 
 
   const resetForm = React.useCallback(() => {
     setState({

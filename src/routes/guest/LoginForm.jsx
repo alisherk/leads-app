@@ -1,25 +1,11 @@
-import { useState } from 'react';
-import { Box, Typography, makeStyles, Paper, Divider, TextField, Button } from '@material-ui/core';
-import { updateStore } from 'fluxible-js';
+import { Box, Button } from '@material-ui/core';
+import { useEffect } from 'react';
+import { unknownError } from '../../fluxible/popup';
 import { Auth } from 'aws-amplify';
 import { alertMessage } from '../../fluxible/popup';
-
-const useStyles = makeStyles(({ spacing }) => ({
-  wrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: spacing(10),
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  titleContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  container: {
-    width: '500px',
-  },
-}));
+import useForm from '../../hooks/useForm';
+import Form from './Form';
+import TextField from '../../components/TextField';
 
 function validateEmail(email) {
   if (!email) return 'Required';
@@ -33,117 +19,83 @@ function validatePassword(password) {
   return '';
 }
 
-const LoginForm = ( { onSuccess }) => {
-  const classes = useStyles();
-
-  const [{ email, password, isSubmitting }, setFormValues] = useState({
-    email: {
-      input: '',
-      error: '',
+const formOptions = {
+  initialContext: {
+    cognitoUser: null,
+  },
+  initialFormValues: {
+    email: '',
+    password: '',
+  },
+  validators: {
+    email({ email }) {
+      return validateEmail(email);
+      //return validate(email, ['required', 'email']);
     },
-    password: {
-      input: '',
-      error: '',
+    password({ password }) {
+      return validatePassword(password);
+      //return validate(password, ['required']);
     },
-    isSubmitting: false,
-  });
-
-  const handleEmailChange = ({ target: { value } }) => {
-    setFormValues(oldState => ({
-      ...oldState,
-      email: {
-        input: value,
-        error: validateEmail(value),
-      },
-    }));
-  };
-
-  const handlePasswordChange = ({ target: { value } }) => {
-    setFormValues(oldState => ({
-      ...oldState,
-      password: {
-        input: value,
-        error: validatePassword(value),
-      },
-    }));
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setFormValues(prevState => ({
-      ...prevState,
-      isSubmitting: true,
-    }));
-    updateStore({ loading: true });
-    try {
-      const cognitoUser = await Auth.signIn(email.input, password.input);
-      onSuccess(cognitoUser)
-      setFormValues(prevState => ({
-        ...prevState,
-        isSubmitting: false,
-      }));
-      updateStore({ loading: false });
-    } catch (err) {
-      updateStore({ loading: false });
-      alertMessage({ title: 'Login error', message: err.message });
-      setFormValues(prevState => ({
-        ...prevState,
-        isSubmitting: false,
-      }));
-      console.log(err);
+  },
+  async onSubmit({ formValues, setContext }) {
+    const cognitoUser = await Auth.signIn(formValues.email, formValues.password);
+    setContext({ cognitoUser });
+  },
+  onSubmitError({ code }) {
+    if (code === 'UserNotFoundException' || code === 'NotAuthorizedException') {
+      alertMessage({
+        message: 'The credentials may be incorrect or the account may have been disabled.',
+      });
+    } else {
+      unknownError();
     }
-  };
+  },
+};
+
+const LoginForm = ({ onSuccess, onForgotPassword }) => {
+  const {
+    formContext: { cognitoUser },
+    formValues,
+    onChangeHandlers,
+    formErrors,
+    isSubmitting,
+    submitHandler,
+  } = useForm(formOptions);
+
+  useEffect(() => {
+    if (cognitoUser) onSuccess(cognitoUser);
+  }, [cognitoUser]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Box className={classes.wrapper}>
-        <Paper>
-          <Box p={2} className={classes.container}>
-            <Box className={classes.titleContainer}>
-              <Typography variant="h4">Leads app</Typography>
-              <Typography>Login</Typography>
-            </Box>
-            <Divider mt={1} mb={1} />
-            <TextField
-              value={email.input}
-              onChange={handleEmailChange}
-              placeholder="Your email"
-              fullWidth
-              margin="dense"
-              variant="outlined"
-              helperText={
-                <Typography variant="caption" color="error">
-                  {email.error}
-                </Typography>
-              }
-            />
-            <TextField
-              value={password.input}
-              onChange={handlePasswordChange}
-              placeholder="Your password"
-              fullWidth
-              margin="dense"
-              variant="outlined"
-              type="password"
-              helperText={
-                <Typography variant="caption" color="error">
-                  {password.error}
-                </Typography>
-              }
-            />
-            <Button
-              disabled={isSubmitting}
-              type="submit"
-              color="primary"
-              fullWidth
-              variant="contained"
-            >
-              Login
-            </Button>
-          </Box>
-        </Paper>
-      </Box>
-    </form>
+    <Form
+      onSubmit={submitHandler}
+      submitLabel="Login"
+      title="Leads Management System"
+      subtitle="Login to your account"
+      isSubmitting={isSubmitting}
+      extendedChild={
+        <Box mt={1}>
+          <Button onClick={onForgotPassword}>Forgot password</Button>
+        </Box>
+      }
+    >
+      <TextField
+        value={formValues.email}
+        error={formErrors.email}
+        onChange={onChangeHandlers.email}
+        label="Your email"
+        type="email"
+        disabled={isSubmitting}
+      />
+      <TextField
+        value={formValues.password}
+        error={formErrors.password}
+        onChange={onChangeHandlers.password}
+        label="Your password"
+        type="password"
+        disabled={isSubmitting}
+      />
+    </Form>
   );
 };
 

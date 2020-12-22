@@ -25,7 +25,6 @@ function Login() {
     try {
       updateStore({ loading: true });
       const authedUser = await Auth.currentAuthenticatedUser();
-
       const {
         data: { getUser: userData },
       } = await API.graphql(graphqlOperation(getUser, { id: authedUser.username }));
