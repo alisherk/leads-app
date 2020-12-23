@@ -6,18 +6,7 @@ import { alertMessage } from '../../fluxible/popup';
 import useForm from '../../hooks/useForm';
 import Form from './Form';
 import TextField from '../../components/TextField';
-
-function validateEmail(email) {
-  if (!email) return 'Required';
-  const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (!regex.test(email) || !email.length > 320) return 'Invalid email';
-  return '';
-}
-
-function validatePassword(password) {
-  if (!password || password.length < 6) return 'Invalid password';
-  return '';
-}
+import validate from '../../lib/validate';
 
 const formOptions = {
   initialContext: {
@@ -29,12 +18,10 @@ const formOptions = {
   },
   validators: {
     email({ email }) {
-      return validateEmail(email);
-      //return validate(email, ['required', 'email']);
+       return validate(email, ['required', 'email']);
     },
     password({ password }) {
-      return validatePassword(password);
-      //return validate(password, ['required']);
+      return validate(password, ['required']);
     },
   },
   async onSubmit({ formValues, setContext }) {

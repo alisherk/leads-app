@@ -4,7 +4,7 @@ import TextField from '../../components/TextField';
 import useForm from '../../hooks/useForm';
 import { updateUser } from '../../graphql/mutations';
 import Form from './Form';
-//import validate from 'libs/validate';
+import validate from '../../lib/validate';
 
 const formOptions = {
   initialFormValues: {
@@ -14,8 +14,8 @@ const formOptions = {
     cognitoUser: null,
   },
   validators: {
-    newPassword( ) {
-      //return validate(newPassword, ['required']);
+    newPassword({ newPassword }) {
+      return validate(newPassword, ['required']);
     },
   },
   async onSubmit({ formValues, formContext }) {

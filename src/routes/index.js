@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import Login from './guest/index';
+import FabButton from './Fab/FabButton';
 
 function mapState({ authedUser }) {
   return { authedUser };
@@ -18,6 +19,7 @@ const Routes = () => {
           </Toolbar>
         </AppBar>
         <Toolbar />
+        <FabButton/>
       </>
     );
   }

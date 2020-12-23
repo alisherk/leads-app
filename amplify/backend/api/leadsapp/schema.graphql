@@ -1,3 +1,8 @@
+enum Gender {
+    Male = "male",
+    Female = "female"
+}
+
 type User
   @model
   @auth(rules: [{ allow: private, groups: ["Admin"] }, { allow: public, provider: iam }]) {
@@ -6,4 +11,13 @@ type User
   lastName: String
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
+}
+
+type Lead 
+  @model
+  @auth(rules: [{ allow: private }, {allow: public, provider: iam}]) {
+  id: ID! 
+  firstName: String
+  lastName: String
+  gender: Gender; 
 }
