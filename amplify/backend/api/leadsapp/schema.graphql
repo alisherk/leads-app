@@ -19,5 +19,5 @@ type Lead
   id: ID! 
   firstName: String
   lastName: String
-  gender: Gender; 
+  gender: Gender
 }
