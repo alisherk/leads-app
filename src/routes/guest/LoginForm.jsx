@@ -1,12 +1,12 @@
 import { Box, Button } from '@material-ui/core';
 import { useEffect } from 'react';
-import { unknownError } from '../../fluxible/popup';
+import { unknownError } from 'fluxible/popup';
 import { Auth } from 'aws-amplify';
-import { alertMessage } from '../../fluxible/popup';
-import useForm from '../../hooks/useForm';
+import { alertMessage } from 'fluxible/popup';
+import useForm from 'hooks/useForm';
 import Form from './Form';
-import TextField from '../../components/TextField';
-import validate from '../../lib/validate';
+import TextField from 'components/TextField';
+import validate from 'lib/validate';
 
 const formOptions = {
   initialContext: {
@@ -18,7 +18,7 @@ const formOptions = {
   },
   validators: {
     email({ email }) {
-       return validate(email, ['required', 'email']);
+      return validate(email, ['required', 'email']);
     },
     password({ password }) {
       return validate(password, ['required']);

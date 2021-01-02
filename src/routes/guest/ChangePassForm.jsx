@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Auth, graphqlOperation, API } from 'aws-amplify';
-import TextField from '../../components/TextField';
-import useForm from '../../hooks/useForm';
-import { updateUser } from '../../graphql/mutations';
+import TextField from 'components/TextField';
+import useForm from 'hooks/useForm';
+import { updateUser } from 'graphql/mutations';
 import Form from './Form';
-import validate from '../../lib/validate';
+import validate from 'lib/validate';
 
 const formOptions = {
   initialFormValues: {

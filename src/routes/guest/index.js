@@ -3,8 +3,8 @@ import LoginForm from './LoginForm';
 import ChangePassForm from './ChangePassForm';
 import { updateStore } from 'fluxible-js';
 import { Auth, API, graphqlOperation } from 'aws-amplify';
-import { getUser } from '../../graphql/queries';
-import getInitialStore from '../../fluxible/getInitialStore';
+import { getUser } from 'graphql/queries';
+import getInitialStore from 'fluxible/getInitialStore';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 
 //import ForgotPassword from './ForgotPassword';

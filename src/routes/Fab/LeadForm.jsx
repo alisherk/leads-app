@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { addEvent, emitEvent } from 'fluxible-js';
 import { useHistory } from 'react-router-dom';
 import {
@@ -9,14 +9,14 @@ import {
   Button,
   MenuItem,
 } from '@material-ui/core';
-import TextField from '../../components/TextField';
-import Select from '../../components/Select';
-import LeadStatusSelect from '../../components/LeadStatusSelect';
-import validate from '../../lib/validate';
-import { sanitizeInput } from '../../lib/input';
-import useForm from '../../hooks/useForm';
-import { createLead, updateLead } from '../../graphql/mutations';
-import { unknownError } from '../../fluxible/popup';
+import TextField from 'components/TextField';
+import Select from 'components/Select';
+import validate from 'lib/validate';
+import { sanitizeInput } from 'lib/input';
+import useForm from 'hooks/useForm';
+import { createLead, updateLead } from 'graphql/mutations';
+import { unknownError } from 'fluxible/popup';
+//import LeadStatusSelect from 'components/LeadStatusSelect';
 
 const formOptions = {
   initialContext: {
@@ -24,20 +24,18 @@ const formOptions = {
   },
   initialFormValues: {
     firstName: '',
-    middleName: '',
     lastName: '',
     gender: '',
-    leadStatusId: '',
+    //leadStatusId: '',
   },
   isGraphql: true,
   createMutation: createLead,
   updateMutation: updateLead,
   validators: {
     firstName: ({ firstName }) => validate(firstName, ['required', 'maxLength:255']),
-    middleName: ({ middleName }) => validate(middleName, ['maxLength:255']),
     lastName: ({ lastName }) => validate(lastName, ['required', 'maxLength:255']),
     gender: ({ gender }) => validate(gender, ['required', 'options:Male,Female']),
-    leadStatusId: ({ leadStatusId }) => validate(leadStatusId, ['required', 'leadStatus']),
+    //leadStatusId: ({ leadStatusId }) => validate(leadStatusId, ['required', 'leadStatus']),
   },
   transformInput({ formValues }) {
     return Object.keys(formValues).reduce(
@@ -75,20 +73,21 @@ function LeadForm() {
     setEditMode,
     operation,
   } = useForm(formOptions);
-  const [isOpen, setIsOpen] = React.useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
 
-  const toggle = React.useCallback(() => {
+  const toggle = useCallback(() => {
     setIsOpen(isVisible => !isVisible);
   }, []);
 
   useEffect(() => {
     const removeListener = addEvent(
       'toggleLeadForm',
-      targetLead => {
+      toggle
+      /*      targetLead => {
         if (targetLead) {
           const { id, firstName, middleName, lastName, gender, leadStatusId } = targetLead;
-
           setEditMode(({ formValues }) => ({
             targetRecordId: id,
             formValues: {
@@ -101,12 +100,9 @@ function LeadForm() {
             },
           }));
         }
-
         toggle();
-      },
-      []
+      }, */
     );
-
     return removeListener;
   }, [toggle, setEditMode]);
 
@@ -131,13 +127,6 @@ function LeadForm() {
             disabled={isSubmitting}
           />
           <TextField
-            value={formValues.middleName}
-            error={formErrors.middleName}
-            label="Middle name (optional)"
-            onChange={onChangeHandlers.middleName}
-            disabled={isSubmitting}
-          />
-          <TextField
             value={formValues.lastName}
             error={formErrors.lastName}
             label="Last name"
@@ -154,12 +143,6 @@ function LeadForm() {
             <MenuItem value="Male">Male</MenuItem>
             <MenuItem value="Female">Female</MenuItem>
           </Select>
-          <LeadStatusSelect
-            value={formValues.leadStatusId}
-            error={formErrors.leadStatusId}
-            onChange={onChangeHandlers.leadStatusId}
-            disabled={isSubmitting}
-          />
         </DialogContent>
         <DialogActions>
           <Button color="secondary" onClick={toggle} disabled={isSubmitting}>

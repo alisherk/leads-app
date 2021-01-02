@@ -129,6 +129,7 @@ function useForm ({
   const confirmSubmit = React.useCallback(async () => {
     try {
       updateStore({ loading: true });
+      if(!validateForm) return; 
       let data = null;
 
       if (isGraphql) {
@@ -211,35 +212,45 @@ function useForm ({
 
   const submitHandler = React.useCallback(
     async ev => {
+
       try {
         if (ev && ev.preventDefault) ev.preventDefault();
-        if (isSubmitting) return;
         if (validateForm()) return;
-
         setState(oldState => ({
           ...oldState,
           status: 'submitting'
         }));
 
-        if (onBeforeSaveConfirm) {
-          const result = await onBeforeSaveConfirm({
-            formValues,
-            formContext,
-            onConfirm: confirmSubmit,
-            onCancel: cancelSubmit,
-            operation,
-            targetRecordId
-          });
+        const inputData = transformInput
+        ? transformInput({ formValues, formContext })
+        : formValues;
+         
+        let input = {};
+        let mutation = createMutation;
+          input = {
+            id: uuid(),
+            ...inputData
+          };
+      
+       const result = await API.graphql(
+          graphqlOperation(mutation, {
+            input
+          })
+        );
 
-          if (!result) {
-            setState(oldState => ({
-              ...oldState,
-              status: 'submitConfirmError'
-            }));
-          }
-        } else {
-          confirmSubmit();
-        }
+        const data = result.data;
+
+        if (onSubmitSuccess)
+        onSubmitSuccess({ data, formValues, formContext, setContext, operation });
+
+      setState(oldState => ({
+        ...oldState,
+        status: 'submitSuccess'
+      }));
+
+      updateStore({ loading: false });
+
+       
       } catch (error) {
         console.error('useForm submitHandler', error);
 

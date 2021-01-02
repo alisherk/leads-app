@@ -1,8 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Container, Box } from '@material-ui/core';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import Login from './guest/index';
-import FabButton from './Fab/FabButton';
+import FabWidget from './Fab';
+import LeadList from './auth/Lead/List';
+import Dashboard from './auth/Dashboard';
 
 function mapState({ authedUser }) {
   return { authedUser };
@@ -12,15 +15,23 @@ const Routes = () => {
   const { authedUser } = useFluxibleStore(mapState);
   if (authedUser) {
     return (
-      <>
+      <BrowserRouter>
         <AppBar position="fixed">
           <Toolbar>
             <Typography> Leads Management System</Typography>
           </Toolbar>
         </AppBar>
         <Toolbar />
-        <FabButton/>
-      </>
+        <FabWidget/>
+        <Box mt={2}>
+          <Container maxWidth="lg">
+            <Switch>
+              <Route path="/lead/list" component={LeadList} />
+              <Route path="/" exact component={Dashboard} />
+            </Switch>
+          </Container>
+        </Box>
+      </BrowserRouter>
     );
   }
   return <Login />;

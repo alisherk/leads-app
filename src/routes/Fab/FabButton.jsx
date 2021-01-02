@@ -2,7 +2,7 @@ import React from 'react';
 import { emitEvent } from 'fluxible-js';
 import OpenIcon from '@material-ui/icons/ExpandLess';
 import CloseIcon from '@material-ui/icons/ExpandMore';
-import RestrictToGroups from '../../components/RestrictToGroups';
+//import RestrictToGroups from 'components/RestrictToGroups';
 import {
   Fab,
   Popper,
@@ -12,7 +12,6 @@ import {
   ClickAwayListener,
   makeStyles,
 } from '@material-ui/core';
-
 
 const useStyles = makeStyles({
   fabBtn: {
@@ -38,13 +37,13 @@ function FabButton() {
     emitEvent('toggleLeadForm');
   };
 
-  const inviteUser = () => {
+  /*   const inviteUser = () => {
     emitEvent('toggleInviteUserForm');
   };
 
   const leadStatuses = () => {
     emitEvent('toggleLeadStatusesForm');
-  };
+  }; */
 
   return (
     <>
@@ -62,10 +61,6 @@ function FabButton() {
           <Box mb={1}>
             <Paper className={classes.paper}>
               <MenuItem onClick={addLead}>Add lead</MenuItem>
-              <RestrictToGroups allowedGroups={['Admin']}>
-                <MenuItem onClick={inviteUser}>Invite user</MenuItem>
-                <MenuItem onClick={leadStatuses}>Lead statuses</MenuItem>
-              </RestrictToGroups>
             </Paper>
           </Box>
         </ClickAwayListener>

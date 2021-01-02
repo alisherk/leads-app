@@ -13,15 +13,20 @@ import {
   Button,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  progressStyle: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-  },
-});
-
+const useStyles = makeStyles(({ palette: { primary: { dark } } }) => ({
+    linearProgress: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      right: 0,
+      zIndex: 9999
+    },
+    barColorPrimary: {
+      backgroundColor: dark
+    }
+  }));
+  
 function mapState({ loading, popup }) {
   return { loading, popup };
 }
@@ -32,7 +37,7 @@ function App() {
   return (
     <>
       {loading ? (
-        <Box className={classes.progressStyle}>
+        <Box className={classes.linearProgress}>
           <LinearProgress />
         </Box>
       ) : null}
