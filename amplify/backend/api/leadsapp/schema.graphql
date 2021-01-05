@@ -5,6 +5,7 @@ enum Gender {
 
 type User
   @model
+  @searchable
   @auth(rules: [{ allow: private, groups: ["Admin"] }, { allow: public, provider: iam }]) {
   id: ID!
   firstName: String
@@ -21,4 +22,7 @@ type Lead
   firstName: String
   lastName: String
   gender: Gender
+  profilePicture: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }

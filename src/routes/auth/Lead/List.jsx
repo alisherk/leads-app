@@ -8,7 +8,7 @@ import Avatar from 'components/Avatar';
 import { TableRow, TableCell } from 'components/Table';
 import TextField from 'components/TextField';
 import LeadStatusSelect from 'components/LeadStatusSelect';
-//import { searchLeads } from 'graphql/queries';
+import { searchLeads } from 'graphql/queries';
 
 function LeadList() {
   const [{ searchString, selectedStatus, filter }, setState] = React.useState({
@@ -27,7 +27,7 @@ function LeadList() {
       lastName,
       gender,
       profilePicture,
-      leadStatus: { name: statusName },
+      //leadStatus: { name: statusName },
     }) => (
       <TableRow
         key={id}
@@ -47,7 +47,7 @@ function LeadList() {
         <TableCell>{middleName}</TableCell>
         <TableCell>{lastName}</TableCell>
         <TableCell>{gender}</TableCell>
-        <TableCell>{statusName}</TableCell>
+    {/*     <TableCell>{statusName}</TableCell> */}
       </TableRow>
     ),
     [history]
@@ -133,7 +133,7 @@ function LeadList() {
         </IconButton>
       </Box>
       <PaginatorTable
-        //query={searchLeads}
+        query={searchLeads}
         queryName="searchLeads"
         renderRow={renderRow}
         tableHead={tableHead}
