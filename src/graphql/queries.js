@@ -30,6 +30,33 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+export const searchUsers = /* GraphQL */ `
+  query SearchUsers(
+    $filter: SearchableUserFilterInput
+    $sort: SearchableUserSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchUsers(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        firstName
+        lastName
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+    }
+  }
+`;
 export const getLead = /* GraphQL */ `
   query GetLead($id: ID!) {
     getLead(id: $id) {
@@ -37,6 +64,7 @@ export const getLead = /* GraphQL */ `
       firstName
       lastName
       gender
+      profilePicture
       createdAt
       updatedAt
     }
@@ -54,6 +82,7 @@ export const listLeads = /* GraphQL */ `
         firstName
         lastName
         gender
+        profilePicture
         createdAt
         updatedAt
       }
@@ -81,6 +110,7 @@ export const searchLeads = /* GraphQL */ `
         firstName
         lastName
         gender
+        profilePicture
         createdAt
         updatedAt
       }

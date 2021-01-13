@@ -1,12 +1,9 @@
 enum Gender {
-    Male
-    Female
+  Male
+  Female
 }
 
-type User
-  @model
-  @searchable
-  @auth(rules: [{ allow: private, groups: ["Admin"] }, { allow: public, provider: iam }]) {
+type User @model @searchable @auth(rules: [{ allow: private, groups: ["Admin"] }, { allow: public, provider: iam }]) {
   id: ID!
   firstName: String
   lastName: String
@@ -14,15 +11,32 @@ type User
   updatedAt: AWSDateTime
 }
 
-type Lead 
-  @model
-  @searchable
-  @auth(rules: [{ allow: private }, {allow: public, provider: iam}]) {
-  id: ID! 
+type Lead @model @searchable @auth(rules: [{ allow: private }, { allow: public, provider: iam }]) {
+  id: ID!
   firstName: String
   lastName: String
   gender: Gender
   profilePicture: String
+  addresses: [Address] @connection(keyName: "byLeadId", fields: ["id"]) 
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+enum AddressTypes {
+  Work
+  Home
+  Province
+}
+
+type Address @model @searchable @auth(rules: [{ allow: private }, { allow: public, provider: iam }]) {
+  @key (name: "byLeadId", fields: ["leadId", "createdAt"])
+  id: ID!
+  type: AddressTypes
+  country: String
+  state: String 
+  line1: String
+  line2: String
+  leadId: ID!
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 }

@@ -5,6 +5,7 @@ import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import Login from './guest/index';
 import FabWidget from './Fab';
 import LeadList from './auth/Lead/List';
+import LeadView from './auth/Lead/View';
 import Dashboard from './auth/Dashboard';
 
 function mapState({ authedUser }) {
@@ -26,8 +27,9 @@ const Routes = () => {
         <Box mt={2}>
           <Container maxWidth="lg">
             <Switch>
-              <Route path="/lead/list" component={LeadList} />
               <Route path="/" exact component={Dashboard} />
+              <Route path="/lead/list" component={LeadList} />
+              <Route path="/lead/view/:id" component={LeadView} />
             </Switch>
           </Container>
         </Box>
