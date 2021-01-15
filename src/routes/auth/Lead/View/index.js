@@ -45,6 +45,7 @@ function LeadView({
       },
       status: 'fetchSuccess',
     }); */
+    setState({ status: 'fetchedSuccess'})
   }, [id]);
 
   const setData = React.useCallback(arg => {
@@ -54,16 +55,18 @@ function LeadView({
     }));
   }, []);
 
-  React.useEffect(() => {
+React.useEffect(() => {
     if (status === 'initial') updateStore({ loading: true });
     else updateStore({ loading: false });
-  }, [status]);
+  }, [status]); 
 
   React.useEffect(() => {
     fetchLead();
   }, [fetchLead]);
 
   if (!data) return null;
+  
+
 
   return (
     <LeadViewContext.Provider value={{ data, setData }}>
