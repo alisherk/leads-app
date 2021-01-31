@@ -45,9 +45,9 @@ function BasicInformation () {
     return removeEvent;
   }, [setData]);
 
-  const { firstName, middleName, lastName, profilePicture, createdAt, gender } = data;
+  const { firstName, lastName, profilePicture, createdAt, gender } = data;
 
-  const fullname = `${firstName}${middleName ? ` ${middleName} ` : ' '}${lastName}`;
+  const fullname = `${firstName} ${lastName}`;
 
   return (
     <Box p={2} display="flex">

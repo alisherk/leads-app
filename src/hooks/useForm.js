@@ -129,7 +129,6 @@ function useForm ({
   const confirmSubmit = React.useCallback(async () => {
     try {
       updateStore({ loading: true });
-      if(!validateForm) return; 
       let data = null;
 
       if (isGraphql) {
@@ -212,45 +211,35 @@ function useForm ({
 
   const submitHandler = React.useCallback(
     async ev => {
-
       try {
         if (ev && ev.preventDefault) ev.preventDefault();
+        if (isSubmitting) return;
         if (validateForm()) return;
+
         setState(oldState => ({
           ...oldState,
           status: 'submitting'
         }));
 
-        const inputData = transformInput
-        ? transformInput({ formValues, formContext })
-        : formValues;
-         
-        let input = {};
-        let mutation = createMutation;
-          input = {
-            id: uuid(),
-            ...inputData
-          };
-      
-       const result = await API.graphql(
-          graphqlOperation(mutation, {
-            input
-          })
-        );
+        if (onBeforeSaveConfirm) {
+          const result = await onBeforeSaveConfirm({
+            formValues,
+            formContext,
+            onConfirm: confirmSubmit,
+            onCancel: cancelSubmit,
+            operation,
+            targetRecordId
+          });
 
-        const data = result.data;
-
-        if (onSubmitSuccess)
-        onSubmitSuccess({ data, formValues, formContext, setContext, operation });
-
-      setState(oldState => ({
-        ...oldState,
-        status: 'submitSuccess'
-      }));
-
-      updateStore({ loading: false });
-
-       
+          if (!result) {
+            setState(oldState => ({
+              ...oldState,
+              status: 'submitConfirmError'
+            }));
+          }
+        } else {
+          confirmSubmit();
+        }
       } catch (error) {
         console.error('useForm submitHandler', error);
 
@@ -283,7 +272,8 @@ function useForm ({
     autocomplete: autocompleteHandlers,
     fileSelect,
     valueChanged
-  } = React.useMemo(() =>
+  } = React.useMemo(
+    () =>
       Object.keys(initialFormValues).reduce(
         (accumulator, field) => ({
           valueChanged: {
@@ -320,8 +310,6 @@ function useForm ({
       ),
     [initialFormValues, setField]
   );
-
- 
 
   const resetForm = React.useCallback(() => {
     setState({

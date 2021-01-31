@@ -21,6 +21,7 @@ type Lead @model @searchable @auth(rules: [{ allow: private }, { allow: public, 
   gender: Gender
   profilePicture: String
   addresses: [Address] @connection(keyName: "byLeadId", fields: ["id"])
+  contactDetails: [ContactDetail] @connection(keyName: "byLeadId", fields: ["id"])
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 }
@@ -43,6 +44,34 @@ type Address
   line1: String
   line2: String
   leadId: ID!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+enum ContactDetailCategories {
+  Email
+  Mobile
+  Telephone
+}
+
+enum ContactDetailTypes {
+  Work
+  Personal
+  Relative
+  Friend
+}
+
+type ContactDetail
+  @model
+  @searchable
+  @auth(rules: [{ allow: private }, { allow: public, provider: iam }])
+  @key(name: "byLeadId", fields: ["leadId", "createdAt"]) {
+  id: ID!
+  leadId: ID!
+  category: ContactDetailCategories
+  type: ContactDetailTypes
+  description: String
+  value: String
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 }

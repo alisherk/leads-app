@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "aws-amplify": "^3.3.12",
     "date-fns": "^2.16.1",
     "fluxible-js": "^5.0.9",
@@ -14,6 +15,7 @@
     "react-image-crop": "^8.6.6",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-window": "^1.8.6",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },

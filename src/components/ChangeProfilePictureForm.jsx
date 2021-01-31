@@ -33,8 +33,6 @@ const cropConfig = {
   aspect: 1,
   width: 150,
   height: 150,
-  x: 0,
-  y: 0
 };
 
 function ChangeProfilePictureForm ({
@@ -59,7 +57,8 @@ function ChangeProfilePictureForm ({
         fileName
       );
 
-      const trimmedPath = savePath.replace(/[/]+$/, '').replace(/^[/]+/, '');
+
+    const trimmedPath = savePath.replace(/[/]+$/, '').replace(/^[/]+/, '');
 
       const { key: profilePicture } = await Storage.put(
         `${trimmedPath}/${fileName}.jpg`,
@@ -148,6 +147,7 @@ function ChangeProfilePictureForm ({
   React.useEffect(() => {
     if (formContext.resultRecord) toggle();
   }, [formContext.resultRecord, toggle]);
+
 
   return (
     <>

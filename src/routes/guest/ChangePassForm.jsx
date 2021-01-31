@@ -1,38 +1,38 @@
-import { useEffect } from 'react';
-import { Auth, graphqlOperation, API } from 'aws-amplify';
+import React from 'react';
+import { Auth, API, graphqlOperation } from 'aws-amplify';
 import TextField from 'components/TextField';
 import useForm from 'hooks/useForm';
+import validate from 'lib/validate';
 import { updateUser } from 'graphql/mutations';
 import Form from './Form';
-import validate from 'lib/validate';
 
 const formOptions = {
   initialFormValues: {
-    newPassword: '',
+    newPassword: ''
   },
   initialContext: {
-    cognitoUser: null,
+    cognitoUser: null
   },
   validators: {
-    newPassword({ newPassword }) {
+    newPassword ({ newPassword }) {
       return validate(newPassword, ['required']);
-    },
+    }
   },
-  async onSubmit({ formValues, formContext }) {
+  async onSubmit ({ formValues, formContext }) {
     await Auth.completeNewPassword(formContext.cognitoUser, formValues.newPassword);
 
     await API.graphql(
       graphqlOperation(updateUser, {
         input: {
           id: formContext.cognitoUser.username,
-          status: 'CONFIRMED',
-        },
+          //status: 'CONFIRMED'
+        }
       })
     );
-  },
+  }
 };
 
-function ChangePassForm({ onSuccess, cognitoUser }) {
+function ChangePassForm ({ cognitoUser, onSuccess }) {
   const {
     formValues,
     formErrors,
@@ -40,14 +40,14 @@ function ChangePassForm({ onSuccess, cognitoUser }) {
     status,
     submitHandler,
     onChangeHandlers,
-    setContext,
+    setContext
   } = useForm(formOptions);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setContext({ cognitoUser });
-  }, [cognitoUser]);
+  }, [cognitoUser, setContext]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (status === 'submitSuccess') onSuccess();
   }, [status, onSuccess]);
 
@@ -57,8 +57,7 @@ function ChangePassForm({ onSuccess, cognitoUser }) {
       title="Change your password"
       subtitle="You need to change your temporary password."
       isSubmitting={isSubmitting}
-      submitLabel="Change password"
-    >
+      submitLabel="Change password">
       <TextField
         value={formValues.newPassword}
         onChange={onChangeHandlers.newPassword}
@@ -70,4 +69,4 @@ function ChangePassForm({ onSuccess, cognitoUser }) {
   );
 }
 
-export default ChangePassForm;
+export default React.memo(ChangePassForm);

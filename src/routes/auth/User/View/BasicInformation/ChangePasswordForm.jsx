@@ -3,8 +3,8 @@ import { Auth } from 'aws-amplify';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import useForm from 'hooks/useForm';
-import validate from 'libs/validate';
-import TextField from 'components/TextField';
+import validate from 'routes/auth/Lead/View/GeneralTab/ContactDetail/node_modules/libs/validate';
+import TextField from 'routes/auth/Lead/View/GeneralTab/ContactDetail/node_modules/components/TextField';
 import { alertMessage, unknownError } from 'fluxible/popup';
 
 const formOptions = {

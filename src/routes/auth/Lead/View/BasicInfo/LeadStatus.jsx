@@ -12,7 +12,6 @@ import { unknownError } from 'fluxible/popup';
 import useForm from 'hooks/useForm';
 import LeadStatusSelect from 'components/LeadStatusSelect';
 import validate from 'lib/validate';
-
 import LeadViewContext from '../LeadViewContext';
 
 const formOptions = {

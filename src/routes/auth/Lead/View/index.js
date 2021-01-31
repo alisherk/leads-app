@@ -5,21 +5,21 @@ import { updateStore } from 'fluxible-js';
 import { getLead } from 'graphql/queries';
 import LeadViewContext from './LeadViewContext';
 import BasicInformation from './BasicInfo';
-//import TabNavigation from 'components/TabNavigation';
-//import GeneralTab from './GeneralTab';
+import TabNavigation from 'components/TabNavigation';
+import GeneralTab from './GeneralTab';
 //import NotesTab from './NotesTab';
 
-/* const tabs = [
+const tabs = [
   {
     Component: GeneralTab,
     label: 'General'
   },
-  {
+/*   {
     Component: NotesTab,
     label: 'Notes'
-  }
+  } */
 ];
- */
+ 
 function LeadView({
   match: {
     params: { id },
@@ -35,47 +35,45 @@ function LeadView({
       data: { getLead: result },
     } = await API.graphql(graphqlOperation(getLead, { id }));
 
-    console.log(result)
+  
 
-    /*     setState({
+    setState({
       data: {
         ...result,
         addresses: result.addresses.items.reverse(),
-        contactDetails: result.contactDetails.items.reverse(),
+        //contactDetails: result.contactDetails.items.reverse(),
       },
       status: 'fetchSuccess',
-    }); */
-    setState({ status: 'fetchedSuccess'})
+    });  
   }, [id]);
 
-  const setData = React.useCallback(arg => {
+   const setData = React.useCallback(arg => {
     setState(oldState => ({
       ...oldState,
       data: arg.constructor === Function ? arg(oldState.data) : arg,
     }));
   }, []);
 
-React.useEffect(() => {
+  React.useEffect(() => {
     if (status === 'initial') updateStore({ loading: true });
     else updateStore({ loading: false });
-  }, [status]); 
+  }, [status]);
 
   React.useEffect(() => {
     fetchLead();
   }, [fetchLead]);
 
-  if (!data) return null;
-  
 
+ if(status === 'initial') return <p>...Loading</p> 
 
   return (
     <LeadViewContext.Provider value={{ data, setData }}>
       <Box mb={2}>
         <Paper>
           <Box mb={7}>
-            <BasicInformation />
+           <BasicInformation />
           </Box>
-          {/*     <TabNavigation tabs={tabs} /> */}
+         <TabNavigation tabs={tabs} /> 
         </Paper>
       </Box>
     </LeadViewContext.Provider>

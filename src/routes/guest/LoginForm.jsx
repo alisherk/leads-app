@@ -1,12 +1,15 @@
-import { Box, Button } from '@material-ui/core';
-import { useEffect } from 'react';
-import { unknownError } from 'fluxible/popup';
-import { Auth } from 'aws-amplify';
-import { alertMessage } from 'fluxible/popup';
-import useForm from 'hooks/useForm';
-import Form from './Form';
+import React from 'react';
+import { Auth, API, graphqlOperation } from 'aws-amplify';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import TextField from 'components/TextField';
+import { alertMessage, unknownError } from 'fluxible/popup';
+import useForm from 'hooks/useForm';
 import validate from 'lib/validate';
+import Form from './Form';
+import { updateStore } from 'fluxible-js';
+import getInitialStore from 'fluxible/getInitialStore';
+import { getUser } from 'graphql/queries';
 
 const formOptions = {
   initialContext: {
@@ -39,19 +42,15 @@ const formOptions = {
   },
 };
 
-const LoginForm = ({ onSuccess, onForgotPassword }) => {
+function LoginForm({ onSuccess, onForgotPassword }) {
   const {
     formContext: { cognitoUser },
     formValues,
-    onChangeHandlers,
     formErrors,
+    onChangeHandlers,
     isSubmitting,
     submitHandler,
   } = useForm(formOptions);
-
-  useEffect(() => {
-    if (cognitoUser) onSuccess(cognitoUser);
-  }, [cognitoUser]);
 
   return (
     <Form
@@ -84,6 +83,6 @@ const LoginForm = ({ onSuccess, onForgotPassword }) => {
       />
     </Form>
   );
-};
+}
 
-export default LoginForm;
+export default React.memo(LoginForm);

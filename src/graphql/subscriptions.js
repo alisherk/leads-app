@@ -44,6 +44,20 @@ export const onCreateLead = /* GraphQL */ `
       profilePicture
       createdAt
       updatedAt
+      addresses {
+        items {
+          id
+          type
+          country
+          state
+          line1
+          line2
+          leadId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -57,6 +71,20 @@ export const onUpdateLead = /* GraphQL */ `
       profilePicture
       createdAt
       updatedAt
+      addresses {
+        items {
+          id
+          type
+          country
+          state
+          line1
+          line2
+          leadId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -68,6 +96,65 @@ export const onDeleteLead = /* GraphQL */ `
       lastName
       gender
       profilePicture
+      createdAt
+      updatedAt
+      addresses {
+        items {
+          id
+          type
+          country
+          state
+          line1
+          line2
+          leadId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const onCreateAddress = /* GraphQL */ `
+  subscription OnCreateAddress {
+    onCreateAddress {
+      id
+      type
+      country
+      state
+      line1
+      line2
+      leadId
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAddress = /* GraphQL */ `
+  subscription OnUpdateAddress {
+    onUpdateAddress {
+      id
+      type
+      country
+      state
+      line1
+      line2
+      leadId
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAddress = /* GraphQL */ `
+  subscription OnDeleteAddress {
+    onDeleteAddress {
+      id
+      type
+      country
+      state
+      line1
+      line2
+      leadId
       createdAt
       updatedAt
     }
