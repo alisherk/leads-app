@@ -1,5 +1,4 @@
 import React from 'react';
-
 import NotesContext from '../NotesContext';
 import Note from './Note';
 

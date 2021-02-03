@@ -12,7 +12,7 @@ import TextField from 'components/TextField';
 import validate from 'lib/validate';
 import useForm from 'hooks/useForm';
 import { unknownError } from 'fluxible/popup';
-//import { createContactDetail, updateContactDetail } from 'graphql/mutations';
+import { createContactDetail, updateContactDetail } from 'graphql/mutations';
 import LeadViewContext from '../../LeadViewContext';
 
 const formOptions = {
@@ -34,8 +34,8 @@ const formOptions = {
     leadId: null,
     resultRecord: null
   },
-  //updateMutation: updateContactDetail,
-  //createMutation: createContactDetail,
+  updateMutation: updateContactDetail,
+  createMutation: createContactDetail,
   isGraphql: true,
   onSubmitSuccess: ({ data, setContext, operation }) => {
     if (operation === 'update') {

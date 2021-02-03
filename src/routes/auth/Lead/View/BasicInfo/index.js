@@ -11,7 +11,7 @@ import Divider from 'components/Divider';
 import Avatar from 'components/Avatar';
 import ChangeProfilePictureForm from 'components/ChangeProfilePictureForm';
 import LeadViewContext from '../LeadViewContext';
-import LeadStatus from './LeadStatus';
+//import LeadStatus from './LeadStatus';
 import { updateLead } from 'graphql/mutations';
 
 const useStyles = makeStyles({
@@ -39,6 +39,7 @@ function BasicInformation () {
 
   React.useEffect(() => {
     const removeEvent = addEvent('leadEditSuccess', newData => {
+      console.log('basic info', newData)
       setData(newData);
     });
 
@@ -84,7 +85,7 @@ function BasicInformation () {
           <strong>Gender</strong>: {gender}
         </Typography>
         <Box mt={2}>
-          <LeadStatus />
+
         </Box>
       </Box>
     </Box>

@@ -17,7 +17,7 @@ function DataListSection ({
   }, [toggleEventName]);
 
   const rows = React.useMemo(() => {
-    if (!dataList.length) {
+    if (!dataList?.length) {
       return (
         <Box p={2}>
           <Typography>{emptyMessage}</Typography>

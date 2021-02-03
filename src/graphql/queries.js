@@ -81,6 +81,19 @@ export const getLead = /* GraphQL */ `
         }
         nextToken
       }
+      contactDetails {
+        items {
+          id
+          leadId
+          category
+          type
+          description
+          value
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -100,6 +113,30 @@ export const listLeads = /* GraphQL */ `
         createdAt
         updatedAt
         addresses {
+          items {
+            id
+            type
+            country
+            state
+            line1
+            line2
+            leadId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        contactDetails {
+          items {
+            id
+            leadId
+            category
+            type
+            description
+            value
+            createdAt
+            updatedAt
+          }
           nextToken
         }
       }
@@ -131,6 +168,30 @@ export const searchLeads = /* GraphQL */ `
         createdAt
         updatedAt
         addresses {
+          items {
+            id
+            type
+            country
+            state
+            line1
+            line2
+            leadId
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        contactDetails {
+          items {
+            id
+            leadId
+            category
+            type
+            description
+            value
+            createdAt
+            updatedAt
+          }
           nextToken
         }
       }
@@ -199,6 +260,71 @@ export const searchAddresss = /* GraphQL */ `
         line1
         line2
         leadId
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+    }
+  }
+`;
+export const getContactDetail = /* GraphQL */ `
+  query GetContactDetail($id: ID!) {
+    getContactDetail(id: $id) {
+      id
+      leadId
+      category
+      type
+      description
+      value
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listContactDetails = /* GraphQL */ `
+  query ListContactDetails(
+    $filter: ModelContactDetailFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listContactDetails(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        leadId
+        category
+        type
+        description
+        value
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const searchContactDetails = /* GraphQL */ `
+  query SearchContactDetails(
+    $filter: SearchableContactDetailFilterInput
+    $sort: SearchableContactDetailSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchContactDetails(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        leadId
+        category
+        type
+        description
+        value
         createdAt
         updatedAt
       }

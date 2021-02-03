@@ -1,11 +1,11 @@
 import Address from './Address';
-//import ContactDetail from './ContactDetail';
+import ContactDetail from './ContactDetail';
 
 function GeneralTab () {
   return (
     <>
       <Address />
- {/*      <ContactDetail /> */}
+      <ContactDetail />
     </>
   );
 }

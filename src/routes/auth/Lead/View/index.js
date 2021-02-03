@@ -34,9 +34,6 @@ function LeadView({
     const {
       data: { getLead: result },
     } = await API.graphql(graphqlOperation(getLead, { id }));
-
-  
-
     setState({
       data: {
         ...result,
