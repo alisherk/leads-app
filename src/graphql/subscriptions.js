@@ -71,6 +71,17 @@ export const onCreateLead = /* GraphQL */ `
         }
         nextToken
       }
+      notes {
+        items {
+          id
+          userId
+          leadId
+          body
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -111,6 +122,17 @@ export const onUpdateLead = /* GraphQL */ `
         }
         nextToken
       }
+      notes {
+        items {
+          id
+          userId
+          leadId
+          body
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -146,6 +168,17 @@ export const onDeleteLead = /* GraphQL */ `
           type
           description
           value
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      notes {
+        items {
+          id
+          userId
+          leadId
+          body
           createdAt
           updatedAt
         }
@@ -236,6 +269,42 @@ export const onDeleteContactDetail = /* GraphQL */ `
       type
       description
       value
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateNote = /* GraphQL */ `
+  subscription OnCreateNote {
+    onCreateNote {
+      id
+      userId
+      leadId
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateNote = /* GraphQL */ `
+  subscription OnUpdateNote {
+    onUpdateNote {
+      id
+      userId
+      leadId
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteNote = /* GraphQL */ `
+  subscription OnDeleteNote {
+    onDeleteNote {
+      id
+      userId
+      leadId
+      body
       createdAt
       updatedAt
     }

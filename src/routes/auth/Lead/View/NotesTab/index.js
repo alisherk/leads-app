@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { updateStore } from 'fluxible-js';
-import Box from '@material-ui/core/Box';
 import { searchNotes } from 'graphql/queries';
 import { PaginatorProvider, PaginatorContext } from 'components/PaginatorProvider';
 import NoteForm from './NoteForm';
 import NotesList from './NotesList';
 import NotesContext from './NotesContext';
+import Box from '@material-ui/core/Box';
+
 
 const sort = {
   field: 'createdAt',

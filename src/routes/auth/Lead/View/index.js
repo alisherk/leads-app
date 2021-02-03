@@ -7,19 +7,19 @@ import LeadViewContext from './LeadViewContext';
 import BasicInformation from './BasicInfo';
 import TabNavigation from 'components/TabNavigation';
 import GeneralTab from './GeneralTab';
-//import NotesTab from './NotesTab';
+import NotesTab from './NotesTab';
 
 const tabs = [
   {
     Component: GeneralTab,
-    label: 'General'
+    label: 'General',
   },
-/*   {
+  {
     Component: NotesTab,
-    label: 'Notes'
-  } */
+    label: 'Notes',
+  },
 ];
- 
+
 function LeadView({
   match: {
     params: { id },
@@ -41,10 +41,10 @@ function LeadView({
         //contactDetails: result.contactDetails.items.reverse(),
       },
       status: 'fetchSuccess',
-    });  
+    });
   }, [id]);
 
-   const setData = React.useCallback(arg => {
+  const setData = React.useCallback(arg => {
     setState(oldState => ({
       ...oldState,
       data: arg.constructor === Function ? arg(oldState.data) : arg,
@@ -60,17 +60,16 @@ function LeadView({
     fetchLead();
   }, [fetchLead]);
 
-
- if(status === 'initial') return <p>...Loading</p> 
+  if (status === 'initial') return <p>...Loading</p>;
 
   return (
     <LeadViewContext.Provider value={{ data, setData }}>
       <Box mb={2}>
         <Paper>
           <Box mb={7}>
-           <BasicInformation />
+            <BasicInformation />
           </Box>
-         <TabNavigation tabs={tabs} /> 
+          <TabNavigation tabs={tabs} />
         </Paper>
       </Box>
     </LeadViewContext.Provider>

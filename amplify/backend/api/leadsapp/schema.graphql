@@ -92,6 +92,7 @@ type Note
   userId: ID!
   leadId: ID!
   body: String
+  user: User @connection(fields: ["userId"])
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 }

@@ -94,6 +94,17 @@ export const getLead = /* GraphQL */ `
         }
         nextToken
       }
+      notes {
+        items {
+          id
+          userId
+          leadId
+          body
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -134,6 +145,17 @@ export const listLeads = /* GraphQL */ `
             type
             description
             value
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        notes {
+          items {
+            id
+            userId
+            leadId
+            body
             createdAt
             updatedAt
           }
@@ -189,6 +211,17 @@ export const searchLeads = /* GraphQL */ `
             type
             description
             value
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        notes {
+          items {
+            id
+            userId
+            leadId
+            body
             createdAt
             updatedAt
           }
@@ -325,6 +358,65 @@ export const searchContactDetails = /* GraphQL */ `
         type
         description
         value
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+    }
+  }
+`;
+export const getNote = /* GraphQL */ `
+  query GetNote($id: ID!) {
+    getNote(id: $id) {
+      id
+      userId
+      leadId
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listNotes = /* GraphQL */ `
+  query ListNotes(
+    $filter: ModelNoteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNotes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        leadId
+        body
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const searchNotes = /* GraphQL */ `
+  query SearchNotes(
+    $filter: SearchableNoteFilterInput
+    $sort: SearchableNoteSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchNotes(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        userId
+        leadId
+        body
         createdAt
         updatedAt
       }
