@@ -15,6 +15,27 @@
       "auth": {
         "leadsapp9aa0eb849aa0eb84": {}
       }
+    },
+    "nonCFNdata": {
+      "function": {
+        "leadmanagementsysnodemodules": {
+          "layerVersionMap": {
+            "1": {
+              "permissions": [
+                {
+                  "type": "awsAccounts",
+                  "accounts": [
+                    "050698091163 "
+                  ]
+                },
+                {
+                  "type": "private"
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   },
   "prod": {
