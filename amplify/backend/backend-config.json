@@ -40,5 +40,12 @@
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }
+  },
+  "function": {
+    "createCognitoUserFn": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
   }
 }

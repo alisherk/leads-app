@@ -79,6 +79,13 @@ export const onCreateLead = /* GraphQL */ `
           body
           createdAt
           updatedAt
+          user {
+            id
+            firstName
+            lastName
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -130,6 +137,13 @@ export const onUpdateLead = /* GraphQL */ `
           body
           createdAt
           updatedAt
+          user {
+            id
+            firstName
+            lastName
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -181,6 +195,13 @@ export const onDeleteLead = /* GraphQL */ `
           body
           createdAt
           updatedAt
+          user {
+            id
+            firstName
+            lastName
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -283,6 +304,13 @@ export const onCreateNote = /* GraphQL */ `
       body
       createdAt
       updatedAt
+      user {
+        id
+        firstName
+        lastName
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -295,6 +323,13 @@ export const onUpdateNote = /* GraphQL */ `
       body
       createdAt
       updatedAt
+      user {
+        id
+        firstName
+        lastName
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -307,6 +342,13 @@ export const onDeleteNote = /* GraphQL */ `
       body
       createdAt
       updatedAt
+      user {
+        id
+        firstName
+        lastName
+        createdAt
+        updatedAt
+      }
     }
   }
 `;

@@ -1,21 +1,16 @@
 import React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-
 import Avatar from 'components/Avatar';
 import TimeAgo from 'components/TimeAgo';
 import OwnerOnly from 'components/OwnerOnly';
-
 import { deleteNote } from 'graphql/mutations';
 import { alertDialog, unknownError } from 'fluxible/popup';
-
 import NoteForm from '../NoteForm';
 import NotesContext from '../NotesContext';
 
@@ -70,10 +65,10 @@ function Note ({ data }) {
     id,
     body,
     createdAt,
-    user: { id: ownerId, firstName, middleName, lastName, profilePicture }
+    user: { id: ownerId, firstName, lastName, profilePicture }
   } = data;
 
-  const fullName = `${firstName}${middleName ? ` ${middleName} ` : ' '}${lastName}`;
+  const fullName = `${firstName} ${lastName}`;
   const isReadMode = mode === 'read';
 
   return (
@@ -84,18 +79,6 @@ function Note ({ data }) {
           <Typography>
             <strong>{fullName}</strong>
           </Typography>
-          {isReadMode ? (
-            <OwnerOnly ownerId={ownerId}>
-              <Box ml={2}>
-                <IconButton size="small" disabled={isDeleting} onClick={editMode}>
-                  <EditIcon fontSize="small" />
-                </IconButton>
-                <IconButton size="small" onClick={onDelete} disabled={isDeleting}>
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </Box>
-            </OwnerOnly>
-          ) : null}
         </Box>
         <Typography variant="caption">
           <TimeAgo pastTime={createdAt} />
