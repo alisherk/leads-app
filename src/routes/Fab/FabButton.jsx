@@ -37,13 +37,13 @@ function FabButton() {
     emitEvent('toggleLeadForm');
   };
 
-  /*   const inviteUser = () => {
+  const inviteUser = () => {
     emitEvent('toggleInviteUserForm');
   };
 
   const leadStatuses = () => {
     emitEvent('toggleLeadStatusesForm');
-  }; */
+  }; 
 
   return (
     <>
@@ -61,6 +61,7 @@ function FabButton() {
           <Box mb={1}>
             <Paper className={classes.paper}>
               <MenuItem onClick={addLead}>Add lead</MenuItem>
+              <MenuItem onClick={inviteUser}>Invite user</MenuItem>
             </Paper>
           </Box>
         </ClickAwayListener>
