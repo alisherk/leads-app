@@ -1,3 +1,8 @@
+enum UserStatus {
+  FORCE_CHANGE_PASSWORD
+  CONFIRMED
+}
+
 type User
   @model
   @searchable
@@ -7,6 +12,8 @@ type User
   lastName: String
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
+  isDisabled: Boolean
+  status: UserStatus
 }
 
 enum Gender {
@@ -78,16 +85,16 @@ type ContactDetail
 }
 
 type Note
-  @model 
+  @model
   @searchable
-  @auth (
+  @auth(
     rules: [
       { allow: private, operations: [create, read] }
       { allow: owner, ownerField: "userId", operations: [update, delete] }
       { allow: public, provider: iam }
     ]
   )
-  @key (name: "byLeadId", fields: ["leadId", "createdAt"]) {
+  @key(name: "byLeadId", fields: ["leadId", "createdAt"]) {
   id: ID!
   userId: ID!
   leadId: ID!
@@ -98,8 +105,13 @@ type Note
 }
 
 type Mutation {
-  createCognitoUser (email: String): AWSJSON
-    @function (name: "createCognitoUserFn-${env}")
+  createCognitoUser(email: String): AWSJSON
+    @function(name: "createCognitoUserFn-${env}")
+    @aws_iam
+    @aws_cognito_user_pools
+
+  resendTempPass(email: String): AWSJSON
+    @function(name: "resendTempPass-${env}")
     @aws_iam
     @aws_cognito_user_pools
 }

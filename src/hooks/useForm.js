@@ -153,7 +153,7 @@ function useForm ({
             ...inputData
           };
         }
-         console.log(input)
+
         const result = await API.graphql(
           graphqlOperation(mutation, {
             input

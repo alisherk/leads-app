@@ -1,19 +1,16 @@
 import React from 'react';
 import { addEvent, emitEvent } from 'fluxible-js';
 import { API, graphqlOperation } from 'aws-amplify';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import TextField from 'components/TextField';
 import Select from 'components/Select';
-
 import useForm from 'hooks/useForm';
-import validate from 'libs/validate';
+import validate from 'lib/validate';
 import { createCognitoUser, createUser } from 'graphql/mutations';
 import { alertMessage, unknownError } from 'fluxible/popup';
 
@@ -21,7 +18,6 @@ const formOptions = {
   initialFormValues: {
     email: '',
     firstName: '',
-    middleName: '',
     lastName: '',
     groups: []
   },
@@ -31,12 +27,11 @@ const formOptions = {
   validators: {
     email: ({ email }) => validate(email, ['required', 'email']),
     firstName: ({ firstName }) => validate(firstName, ['required', 'maxLength:255']),
-    middleName: ({ middleName }) => validate(middleName, ['maxLength:255']),
     lastName: ({ lastName }) => validate(lastName, ['required', 'maxLength:255']),
     groups: ({ groups }) => validate(groups, ['options:Admin,Test1'])
   },
   onSubmit: async ({
-    formValues: { email, firstName, middleName, lastName, groups },
+    formValues: { email, firstName, lastName, groups },
     setContext
   }) => {
     const cognitoRecord = await API.graphql(
@@ -53,7 +48,6 @@ const formOptions = {
         input: {
           id,
           firstName: firstName,
-          middleName: middleName,
           lastName: lastName,
           status: 'FORCE_CHANGE_PASSWORD',
           isDisabled: false,
@@ -131,12 +125,6 @@ function InviteUserForm () {
             error={formErrors.firstName}
             onChange={onChangeHandlers.firstName}
             label="First name"
-          />
-          <TextField
-            value={formValues.middleName}
-            error={formErrors.middleName}
-            onChange={onChangeHandlers.middleName}
-            label="Middle name (optional)"
           />
           <TextField
             value={formValues.lastName}
