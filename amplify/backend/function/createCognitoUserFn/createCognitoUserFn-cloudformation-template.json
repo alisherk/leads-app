@@ -29,6 +29,10 @@
     "storages39f7e601dBucketName": {
       "Type": "String",
       "Default": "storages39f7e601dBucketName"
+    },
+    "functionleadmanagementsysnodemodulesArn": {
+      "Type": "String",
+      "Default": "functionleadmanagementsysnodemodulesArn"
     }
   },
   "Conditions": {
@@ -126,7 +130,11 @@
           ]
         },
         "Runtime": "nodejs12.x",
-        "Layers": [],
+        "Layers": [
+          {
+            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:leadmanagementsysnodemodules-dev:1"
+          }
+        ],
         "Timeout": "25"
       }
     },

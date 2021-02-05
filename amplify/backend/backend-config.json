@@ -69,6 +69,13 @@
           "attributes": [
             "BucketName"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "leadmanagementsysnodemodules",
+          "attributes": [
+            "Arn"
+          ]
         }
       ]
     },
