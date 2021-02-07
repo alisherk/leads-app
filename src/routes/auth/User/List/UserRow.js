@@ -1,12 +1,10 @@
 import React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { emitEvent } from 'fluxible-js';
-
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-
 import BlockIcon from '@material-ui/icons/Block';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import SendIcon from '@material-ui/icons/Send';
