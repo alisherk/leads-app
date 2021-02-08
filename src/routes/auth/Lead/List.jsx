@@ -101,7 +101,6 @@ function LeadList() {
     () => (
       <TableRow>
         <TableCell>First name</TableCell>
-        <TableCell>Middle name</TableCell>
         <TableCell>Last name</TableCell>
         <TableCell>Gender</TableCell>
         <TableCell>Status</TableCell>

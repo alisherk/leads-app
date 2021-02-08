@@ -28,7 +28,7 @@ const formOptions = {
   transformInput: ({ formValues, formContext: { leadId } }) => ({
     ...formValues,
     leadId,
-    //userId: store.authUser.id
+    userId: store.authUser.id
   }),
   onSubmitSuccess: ({ data, setContext, operation }) => {
     if (operation === 'create') {

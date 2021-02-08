@@ -14,6 +14,9 @@ export const listUsers = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
       nextToken
     }
@@ -27,6 +30,9 @@ export const getUser = /* GraphQL */ `
       lastName
       createdAt
       updatedAt
+      isDisabled
+      status
+      email
     }
   }
 `;
@@ -51,6 +57,9 @@ export const searchUsers = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
       nextToken
       total
@@ -108,6 +117,9 @@ export const getLead = /* GraphQL */ `
             lastName
             createdAt
             updatedAt
+            isDisabled
+            status
+            email
           }
         }
         nextToken
@@ -171,6 +183,9 @@ export const listLeads = /* GraphQL */ `
               lastName
               createdAt
               updatedAt
+              isDisabled
+              status
+              email
             }
           }
           nextToken
@@ -244,6 +259,9 @@ export const searchLeads = /* GraphQL */ `
               lastName
               createdAt
               updatedAt
+              isDisabled
+              status
+              email
             }
           }
           nextToken
@@ -402,6 +420,9 @@ export const getNote = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
     }
   }
@@ -426,6 +447,9 @@ export const listNotes = /* GraphQL */ `
           lastName
           createdAt
           updatedAt
+          isDisabled
+          status
+          email
         }
       }
       nextToken
@@ -460,6 +484,9 @@ export const searchNotes = /* GraphQL */ `
           lastName
           createdAt
           updatedAt
+          isDisabled
+          status
+          email
         }
       }
       nextToken

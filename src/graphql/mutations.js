@@ -6,6 +6,21 @@ export const createCognitoUser = /* GraphQL */ `
     createCognitoUser(email: $email)
   }
 `;
+export const resendTempPass = /* GraphQL */ `
+  mutation ResendTempPass($email: String) {
+    resendTempPass(email: $email)
+  }
+`;
+export const enableUserAccount = /* GraphQL */ `
+  mutation EnableUserAccount($id: String) {
+    enableUserAccount(id: $id)
+  }
+`;
+export const disableUserAccount = /* GraphQL */ `
+  mutation DisableUserAccount($id: String) {
+    disableUserAccount(id: $id)
+  }
+`;
 export const createUser = /* GraphQL */ `
   mutation CreateUser(
     $input: CreateUserInput!
@@ -17,6 +32,9 @@ export const createUser = /* GraphQL */ `
       lastName
       createdAt
       updatedAt
+      isDisabled
+      status
+      email
     }
   }
 `;
@@ -31,6 +49,9 @@ export const updateUser = /* GraphQL */ `
       lastName
       createdAt
       updatedAt
+      isDisabled
+      status
+      email
     }
   }
 `;
@@ -45,6 +66,9 @@ export const deleteUser = /* GraphQL */ `
       lastName
       createdAt
       updatedAt
+      isDisabled
+      status
+      email
     }
   }
 `;
@@ -102,6 +126,9 @@ export const createLead = /* GraphQL */ `
             lastName
             createdAt
             updatedAt
+            isDisabled
+            status
+            email
           }
         }
         nextToken
@@ -163,6 +190,9 @@ export const updateLead = /* GraphQL */ `
             lastName
             createdAt
             updatedAt
+            isDisabled
+            status
+            email
           }
         }
         nextToken
@@ -224,6 +254,9 @@ export const deleteLead = /* GraphQL */ `
             lastName
             createdAt
             updatedAt
+            isDisabled
+            status
+            email
           }
         }
         nextToken
@@ -354,6 +387,9 @@ export const createNote = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
     }
   }
@@ -376,6 +412,9 @@ export const updateNote = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
     }
   }
@@ -398,6 +437,9 @@ export const deleteNote = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
     }
   }

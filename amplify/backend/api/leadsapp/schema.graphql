@@ -6,15 +6,25 @@ enum UserStatus {
 type User
   @model
   @searchable
-  @auth(rules: [{ allow: private, groups: ["Admin"] }, { allow: public, provider: iam }]) {
+  @auth (
+    rules: [
+      { allow: private, operations: [read] }
+      { allow: groups, groups: ["Admin"], operations: [read, create, update] }
+      { allow: owner, ownerField: "id", operations: [read, update] }
+      { allow: public, provider: iam }
+    ]
+  ) {
   id: ID!
   firstName: String
+  middleName: String
   lastName: String
+  isDisabled: Boolean
+  status: UserStatues
+  email: String
+  groups: [String]
+  profilePicture: String
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
-  isDisabled: Boolean
-  status: UserStatus
-  email: String
 }
 
 enum Gender {

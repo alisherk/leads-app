@@ -1,14 +1,11 @@
 import React from 'react';
 import { updateStore } from 'fluxible-js';
 import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-
-import TextField from 'routes/auth/Lead/View/GeneralTab/ContactDetail/node_modules/components/TextField';
-
+import TextField from 'components/TextField';
 import useForm from 'hooks/useForm';
-import validate from 'routes/auth/Lead/View/GeneralTab/ContactDetail/node_modules/libs/validate';
+import validate from 'lib/validate';
 import { updateUser } from 'graphql/mutations';
 
 const formOptions = {

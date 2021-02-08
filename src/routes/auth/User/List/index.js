@@ -3,7 +3,7 @@ import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
 import PaginatorTable from 'components/PaginatorTable';
 import { TableRow, TableCell } from 'components/Table';
 import { searchUsers } from 'graphql/queries';
-import withGroupRestrictions from 'hocs/withGroupRestrictions';
+//import withGroupRestrictions from 'hocs/withGroupRestrictions';
 import UserRow from './UserRow';
 import ExtendedChild from './ExtendedChild';
 
@@ -50,4 +50,4 @@ function UserList () {
   );
 }
 
-export default withGroupRestrictions(['Admin'], React.memo(UserList));
+export default React.memo(UserList);

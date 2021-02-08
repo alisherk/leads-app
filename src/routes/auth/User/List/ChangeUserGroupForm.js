@@ -11,7 +11,7 @@ import Select from 'components/Select';
 import { PaginatorContext } from 'components/PaginatorProvider';
 import validate from 'lib/validate';
 import { unknownError, alertMessage } from 'fluxible/popup';
-import { updateUser, updateUserGroups } from 'graphql/mutations';
+import { updateUser } from 'graphql/mutations';
 import useForm from 'hooks/useForm';
 
 const formOptions = {
@@ -30,13 +30,13 @@ const formOptions = {
     formContext: { targetUserId },
     setContext
   }) => {
-    await API.graphql(
+/*     await API.graphql(
       graphqlOperation(updateUserGroups, {
         groups: JSON.stringify(groups),
         id: targetUserId
       })
     );
-
+ */
     const {
       data: { updateUser: resultRecord }
     } = await API.graphql(

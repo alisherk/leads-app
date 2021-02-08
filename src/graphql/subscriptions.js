@@ -9,6 +9,9 @@ export const onCreateUser = /* GraphQL */ `
       lastName
       createdAt
       updatedAt
+      isDisabled
+      status
+      email
     }
   }
 `;
@@ -20,6 +23,9 @@ export const onUpdateUser = /* GraphQL */ `
       lastName
       createdAt
       updatedAt
+      isDisabled
+      status
+      email
     }
   }
 `;
@@ -31,6 +37,9 @@ export const onDeleteUser = /* GraphQL */ `
       lastName
       createdAt
       updatedAt
+      isDisabled
+      status
+      email
     }
   }
 `;
@@ -85,6 +94,9 @@ export const onCreateLead = /* GraphQL */ `
             lastName
             createdAt
             updatedAt
+            isDisabled
+            status
+            email
           }
         }
         nextToken
@@ -143,6 +155,9 @@ export const onUpdateLead = /* GraphQL */ `
             lastName
             createdAt
             updatedAt
+            isDisabled
+            status
+            email
           }
         }
         nextToken
@@ -201,6 +216,9 @@ export const onDeleteLead = /* GraphQL */ `
             lastName
             createdAt
             updatedAt
+            isDisabled
+            status
+            email
           }
         }
         nextToken
@@ -310,6 +328,9 @@ export const onCreateNote = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
     }
   }
@@ -329,6 +350,9 @@ export const onUpdateNote = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
     }
   }
@@ -348,6 +372,9 @@ export const onDeleteNote = /* GraphQL */ `
         lastName
         createdAt
         updatedAt
+        isDisabled
+        status
+        email
       }
     }
   }

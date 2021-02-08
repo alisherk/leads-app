@@ -1,41 +1,72 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Container, Box } from '@material-ui/core';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 //import useFluxibleStore from 'react-fluxible/lib/useFluxibleStore';
-//import Login from './guest/index';
-import FabWidget from './Fab';
-import LeadList from './auth/Lead/List';
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+
+//import RestrictToGroups from 'components/RestrictToGroups';
+//import Login from './guest/Login';
 import LeadView from './auth/Lead/View';
+import LeadList from './auth/Lead/List';
+import UserList from './auth/User/List';
+import UserView from './auth/User/View';
 import Dashboard from './auth/Dashboard';
 
-/* function mapState({ authedUser }) {
-  return { authedUser };
-} */
+import FabWidget from './Fab';
+//import FetchLeadStatuses from './FetchLeadStatuses';
+//import ProfileMenu from './ProfileMenu';
 
-const Routes = () => {
-  //const { authedUser } = useFluxibleStore(mapState);
-  
+function mapStates ({ authUser, isAuthenticated }) {
+  return { authUser, isAuthenticated };
+}
+
+function Routes () {
+  //const { authUser, isAuthenticated } = useFluxibleStore(mapStates);
     return (
       <BrowserRouter>
         <AppBar position="fixed">
           <Toolbar>
-            <Typography> Leads Management System</Typography>
+            <Box
+              display="flex"
+              flex="1"
+              alignItems="center"
+              justifyContent="space-between">
+              <Typography>Leads Management System</Typography>
+              <Box display="flex" alignItems="center">
+                  <Button color="inherit" component={Link} to="/user/list">
+                    User list
+                  </Button>
+                  <Box mr={1} />
+                <Button color="inherit" component={Link} to="/lead/list">
+                  Lead list
+                </Button>
+                <Box mr={1} />
+            {/*     <ProfileMenu /> */}
+              </Box>
+            </Box>
           </Toolbar>
         </AppBar>
         <Toolbar />
-        <FabWidget/>
+        <FabWidget />
         <Box mt={2}>
           <Container maxWidth="lg">
             <Switch>
+              <Route path="/user/list" component={UserList} />
+              <Route path="/user/profile" component={UserView} />
               <Route path="/lead/list" component={LeadList} />
               <Route path="/lead/view/:id" component={LeadView} />
               <Route path="/" exact component={Dashboard} />
             </Switch>
           </Container>
         </Box>
+  
       </BrowserRouter>
     );
-  
-};
+}
 
-export default Routes;
+export default React.memo(Routes);
