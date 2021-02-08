@@ -19,7 +19,7 @@ type User
   middleName: String
   lastName: String
   isDisabled: Boolean
-  status: UserStatues
+  status: UserStatus
   email: String
   groups: [String]
   profilePicture: String
