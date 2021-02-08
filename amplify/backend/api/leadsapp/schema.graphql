@@ -116,8 +116,8 @@ type Note
 }
 
 type Mutation {
-  createCognitoUser(email: String): AWSJSON
-    @function(name: "createCognitoUserFn-${env}")
+  createCognitoUser (email: String, groups: AWSJSON): AWSJSON
+    @function (name: "createCognitoUserFn-${env}")
     @aws_iam
     @aws_cognito_user_pools
 
@@ -133,6 +133,11 @@ type Mutation {
 
   disableUserAccount(id: String): AWSJSON
     @function(name: "disableUserAccount-${env}")
+    @aws_iam
+    @aws_cognito_user_pools
+
+    updateUserGroups (id: String, groups: AWSJSON): AWSJSON
+    @function (name: "updateUserGroups-${env}")
     @aws_iam
     @aws_cognito_user_pools
 }
